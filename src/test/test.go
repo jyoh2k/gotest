@@ -1,11 +1,10 @@
-package test
+package main
 
 import "fmt"
 
-func MyTest() {
-	fmt.Println("My Test Package")
-}
-
-func mytestclone() {
-	fmt.Println("My test clone!")
+func main() {
+	var arrayPointer *[]int = new([]int)
+	*arrayPointer = make
+	*numPtr = 1
+	fmt.Println(numPtr)
 }
