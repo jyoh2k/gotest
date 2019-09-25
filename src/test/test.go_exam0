@@ -1,0 +1,26 @@
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+// func hello(wait *sync.WaitGroup) {
+// 	defer wait.Done()
+// 	fmt.Println("Hello, world")
+// }
+
+func main() {
+	var wait sync.WaitGroup
+	s := "Hello, world"
+
+	for i := 0; i < 100; i++ {
+		wait.Add(1)
+		go func(n int) {
+			defer wait.Done()
+			fmt.Println(s, n)
+		}(i)
+	}
+
+	wait.Wait()
+}
