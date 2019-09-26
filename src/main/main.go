@@ -2,63 +2,60 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"strings"
+	"math/rand"
 )
 
 func main() {
-	var detMap = make(map[string]int)
-	// var detMap_1 = make(map[string]int)
-	// var detMap_2 = make(map[string]int)
-	var detByte = make([]byte, 0)
-	// var wait sync.WaitGroup
-	det, err := ioutil.ReadFile("C:\\workspace_go\\src\\test.txt")
-	if err != nil {
-		fmt.Println(err)
-	}
-	// fmt.Println(len(det))
-	for _, val := range det {
-		// fmt.Println(val)
-		// if 'A' <= val && val <= 'Z' || 'a' <= val <= 'z' || val == ' ' {
-		if val >= 'A' && val <= 'Z' || val >= 'a' && val <= 'z' || val == ' ' {
-			detByte = append(detByte, val)
-		}
-	}
-	// fmt.Println(detByte)
-	detSplit := strings.Split(string(detByte), " ")
-	// fmt.Println(detSplit)
-	det_1 := detSplit[:len(detSplit)/2]
-	fmt.Println(det_1)
-	det_2 := detSplit[len(detSplit)/2:]
-	fmt.Println(det_2)
+	fmt.Println("Hello, Card world!")
 
-	// wait.Add(1)
+	const num int = 20
+	var card = [num]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	const nPlayer int = 2
+	var user [nPlayer][2]int
+	var result [nPlayer]int
 
-	myfunc := func(str []string) (temp map[string]int) {
-		// defer wait.Done()
-		for _, val := range str {
-			key := val
-			_, isKey := temp[key]
-			// fmt.Println(val, isKey)
-			if isKey != true {
-				temp[key] = 1
-			} else {
-				temp[key]++
+	// user := make([][]int, nPlayer, 2)
+
+	// for i := 0; i < num; i++ {
+	// 	card = append(card, rand.Intn(10)+1)
+	// }
+
+	for i := 0; i < nPlayer; i++ {
+		for {
+			a := rand.Intn(num)
+			// fmt.Println(a)
+			if card[a] != 0 {
+				user[i][0] = card[a]
+				card[a] = 0
+				break
 			}
 		}
-		return temp
+		for {
+			b := rand.Intn(num)
+			if card[b] != 0 {
+				user[i][1] = card[b]
+				card[b] = 0
+				break
+			}
+		}
 	}
 
-	detMap_1 := myfunc(det_1)
-	detMap_2 := myfunc(det_2)
+	fmt.Println(card)
+	fmt.Println(user)
 
-	fmt.Println("Main Tread!")
-	// wait.Wait()
+	for i := 0; i < nPlayer; i++ {
+		result[i] = (user[i][0] + user[i][1]) % 10
+	}
 
-	// for key, _ := range detMap {
-	fmt.Println(detMap_1)
-	fmt.Println(detMap_2)
-	fmt.Println(detMap)
-	// }
-	// flag := strings.Contains(detSpli, "")
+	k := 0
+	v := 0
+	for i, val := range result {
+		fmt.Println(i, val)
+		if v < result[i] {
+			k = i
+			v = result[i]
+		}
+	}
+
+	fmt.Printf("Winner %d th, Score : %d", k+1, v)
 }
