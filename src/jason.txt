@@ -42,4 +42,12 @@ index.html 파일 생성 및 웹서버 실행
 5555:5555 /* 가상머신이 5555를 점유하기 때문에 호스트에서는 5555를 사용하지 못함
 클라이언트에서 5555 포트로 통신시도함
 
+docker commit 컨테이너명 id/repository명:tag(없을시 latest)
+
+docker images /* 이미지 확인 */
+
+docker login
+
+docker push id/repository
+
 
