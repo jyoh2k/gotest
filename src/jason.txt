@@ -1,0 +1,45 @@
+C:\Users\student\multicampus\testSql  /* db 공간을 정의 */
+/C/Users/student/multicampus/testSql:/root/multicampus
+
+docker log in
+jyoh2k
+passwd
+
+docker pull ggyaowang/multicampus
+
+docker run -dt -i -p 8888:80 -p 5555:5555 -v /C/Users/student/multicampus/testSql:/root/multicampus --link mysql-test --name example-1 ggyaowang/multicampus /bin/bash
+8888 : Http 용도
+5555 : TCP 용도
+
+
+
+
+docker 설정 : shared drives 에서 c 드라이브를 공유함
+
+docker exec -it example-1 /bin/bash
+
+cd /root/multicampus /*파일 생성하면 로컬에도 확인됨 */
+
+apt-get install git
+
+go get -u github.com/go-sql-driver/mysql
+
+go run main.go /* 에러 발생 */
+
+docker inspect -f "{{ .NetworkSettings.IPAddress }}" mysql-test
+
+mysql -h [ip] -u root -p /* sql에 접속해서 여러 작업 가능함 */
+
+go get -u github.com/gin-gonic/gin  /* gin 웹서버 설치 */
+
+index.html 파일 생성 및 웹서버 실행
+
+웹브라우저에서 웹서버 파일 로드 (http://localhost:8082/)
+
+웹서버에 파일 업로드 및 실행 : vm의 http 포트 및 html 경로 변경 필요
+
+호스트:가상머신 포트
+5555:5555 /* 가상머신이 5555를 점유하기 때문에 호스트에서는 5555를 사용하지 못함
+클라이언트에서 5555 포트로 통신시도함
+
+
